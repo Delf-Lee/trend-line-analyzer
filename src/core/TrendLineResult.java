@@ -4,16 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class TrandLineResult {
+public class TrendLineResult {
 	private Map<String, Integer> counter = new HashMap<>();
 
-	public TrandLineResult(String ... trends) {
+	public TrendLineResult(String ... trends) {
 		for(String trend : trends) {
 			add(trend);
 		}
 	}
 
-	public TrandLineResult merge(TrandLineResult patternResult) {
+	public TrendLineResult merge(TrendLineResult patternResult) {
 		for (String trend : patternResult.counter.keySet()) {
 			counter.merge(trend, patternResult.counter.get(trend), Integer::sum);
 		}
@@ -29,7 +29,7 @@ public class TrandLineResult {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
-		TrandLineResult that = (TrandLineResult) o;
+		TrendLineResult that = (TrendLineResult) o;
 
 		return Objects.equals(counter, that.counter);
 

@@ -1,20 +1,19 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TrendLine {
-	private String category;
+	private String name;
 	private List<String> elements = new ArrayList<>();
 
-	public TrendLine(String category, List<String> elements) {
-		this.category = category;
+	public TrendLine(String name, List<String> elements) {
+		this.name = name;
 		this.elements = elements;
 	}
 
-	public PatternResult getResult(List<String> pattern) {
-		PatternResult result = new PatternResult();
+	public TrendLineResult getResult(List<String> pattern) {
+		TrendLineResult result = new TrendLineResult();
 		for (int i = 0; i < elements.size() - 1; i++) {
 			if (isSamePattern(i, pattern)) {
 				result.add(elements.get(i + pattern.size()));
@@ -23,23 +22,22 @@ public class TrendLine {
 		return result;
 	}
 
-	private boolean isSamePattern(int index, List<String> pattern) {
-		for (String trend : pattern) {
-			if (elements.get(index).equals(trend) && isEqualPattern(index, pattern)) {
-				return false;
-			}
+	private boolean isSamePattern(int startIdx, List<String> pattern) {
+		if (!elements.get(startIdx).equals(pattern.get(0))) {
+			return false;
 		}
-		return true;
-	}
+		if (startIdx + pattern.size() + 1 > elements.size()) {
+			return false;
+		}
 
-	private boolean isEqualPattern(int startIdx, List<String> pattern) {
 		return elements.subList(startIdx, startIdx + pattern.size()).equals(pattern);
 	}
 
-	public static void main(String[] args) {
-		TrendLine trendLine = new TrendLine("A", Arrays.asList("u", "u", "d", "m", "d", "m", "d", "u", "m"));
-		List<String> pattern = Arrays.asList("m", "d");
-		System.out.println(trendLine.isEqualPattern(3, pattern));
-
+	@Override
+	public String toString() {
+		return "TrendLine{" +
+				"name='" + name + '\'' +
+				", elements=" + elements +
+				'}';
 	}
 }
