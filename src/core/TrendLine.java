@@ -1,6 +1,7 @@
 package core;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class TrendLine {
@@ -31,6 +32,14 @@ public class TrendLine {
 		}
 
 		return elements.subList(startIdx, startIdx + pattern.size()).equals(pattern);
+	}
+
+	public List<String> getElementsOfLatest(int day) {
+		return elements.subList(elements.size() - day, elements.size());
+	}
+
+	public String getName() {
+		return name;
 	}
 
 	@Override

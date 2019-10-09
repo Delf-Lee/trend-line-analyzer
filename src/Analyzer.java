@@ -1,4 +1,5 @@
 import core.LineChart;
+import core.TrendLine;
 import core.TrendLineResult;
 
 import java.util.HashSet;
@@ -12,12 +13,16 @@ public class Analyzer {
 		lineChartSet.add(lineChart);
 	}
 
-	public TrendLineResult getAnalysisResult(String TrendLineName, List<String> pattern) {
+	public TrendLineResult getAnalysisResult(String trendLineName, List<String> pattern) {
 		TrendLineResult result = new TrendLineResult();
 		for (LineChart lineChart : lineChartSet) {
-			result.merge(lineChart.getPatternResult(TrendLineName, pattern));
+			result.merge(lineChart.getPatternResult(trendLineName, pattern));
 		}
 		return result;
+	}
+
+	public TrendLineResult getAnalysisResult(TrendLine trendLine, int latestDay) {
+		return getAnalysisResult(trendLine.getName(), trendLine.getElementsOfLatest(latestDay));
 	}
 
 	@Override
